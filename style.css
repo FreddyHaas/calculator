@@ -1,0 +1,83 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.border {
+    margin-top: 50px;
+    width: 356px;
+    padding: 20px;
+    background: rgb(184, 182, 182);
+    border-radius: 15px;
+    border: solid black;
+    border-width: 2px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    font-size: 20px;
+}
+
+.container0 {
+    width: auto;
+    height: 96px;
+    background: white;
+    border: solid black;
+    border-width: 2px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+}
+
+#lastOperation {
+    height: 50%;
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    color: white;
+}
+
+#currentOperation {
+    font-size: 40px;
+    height: 100%;
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: right;  
+    align-items: center;  
+}
+
+.container1 {
+    height: 380px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.buttonLarge, .button {
+    background: white; 
+    border: solid black;
+    border-width: 2px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+}
+
+.buttonLarge {
+    width: 160px;
+}
+
+#delete {
+    background: rgb(240, 134, 134);
+}
+
+#clear {
+    background: rgb(146, 146, 218);
+}
+
+.button {
+    width: 70px;
+}
