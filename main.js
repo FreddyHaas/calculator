@@ -1,6 +1,6 @@
-let numberOne = 0;
-let numberTwo = 0;
-let mathOperator = 0;
+let numberOne = null;
+let numberTwo = null;
+let mathOperator = null;
 let resultShown = 0;
 
 /* Update, store and display inputs */
@@ -9,20 +9,20 @@ const displaySmall = document.getElementById('displaySmall');
 
 function displayOperation () {
     if (resultShown === 0) {
-        if (numberOne === 0 && mathOperator === 0 && numberTwo === 0) {
+        if (numberOne === null && mathOperator === null && numberTwo === null) {
             displaySmall.style.color = 'white';
-            displayLarge.textContent = `${numberOne}`;
+            displayLarge.textContent = `0`;
         }
-        if (numberOne !== 0 && mathOperator === 0 && numberTwo === 0) {
+        if (numberOne !== null && mathOperator === null && numberTwo === null) {
             displayLarge.textContent = `${numberOne}`;
             displaySmall.style.color = `white`;
         }
-        if (numberOne !==0 && mathOperator !== 0 && numberTwo === 0) {
+        if (numberOne !== null && mathOperator !== null && numberTwo === null) {
             displaySmall.textContent = `${numberOne} ${mathOperator}`;
             displaySmall.style.color = 'black';
             displayLarge.textContent = `${numberOne}`;
         }
-        if (numberOne !== 0 && mathOperator !== 0 && numberTwo !== 0) {
+        if (numberOne !== null && mathOperator !== null && numberTwo !== null) {
             displayLarge.textContent = `${numberTwo}`;
     }}
     if (resultShown === 1) {
@@ -32,22 +32,25 @@ function displayOperation () {
     }};
 
 function updateStorage (numberStorage, currentNumber) {
+    if (numberStorage === null) {
+        numberStorage = 0;
+    };
     numberStorage += currentNumber;
         numberStorage = parseInt(numberStorage);
         return numberStorage;
 }
 
 function storeNumber (currentNumber) {
-    if (numberOne === 0 && mathOperator === 0 && numberTwo === 0) {
+    if (numberOne === null && mathOperator === null && numberTwo === null) {
         return numberOne = updateStorage (numberOne, currentNumber);
     }
-    if (numberOne !== 0 && mathOperator === 0 && numberTwo === 0) {
+    if (numberOne !== null && mathOperator === null && numberTwo === null) {
         return numberOne = updateStorage (numberOne, currentNumber);
     }
-    if (numberOne !==0 && mathOperator !== 0 && resultShown === 0) {
+    if (numberOne !== null && mathOperator !== null && resultShown === 0) {
         return numberTwo = updateStorage (numberTwo, currentNumber);
     }
-    if (numberOne !==0 && mathOperator !== 0 && numberTwo !== 0 && resultShown === 1) {
+    if (numberOne !== null && mathOperator !== null && numberTwo !== null && resultShown === 1) {
         resetAllValues ();
         return numberOne = updateStorage (numberOne, currentNumber);
     }
@@ -67,18 +70,18 @@ numbers.forEach((number) => {
 const operators = document.querySelectorAll('#operator');
 operators.forEach((operator) => { 
     operator.addEventListener ('click', () => {
-            if (numberOne === 0 && mathOperator === 0 && numberTwo === 0) {
+            if (numberOne === null && mathOperator === null && numberTwo === null) {
                 console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
             }
-            if (numberOne !== 0 && numberTwo === 0) {
+            if (numberOne !== null && numberTwo === null) {
                 mathOperator = operator.textContent;
                 displayOperation ();
                 console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
             }
-            if (numberOne !== 0 && mathOperator !== 0 && numberTwo !== 0) {
+            if (numberOne !== null && mathOperator !== null && numberTwo !== null) {
                 resultShown = 0 /* Avoids to show result again eventhough second no. was not yet entered */
                 numberOne = operate(numberOne, mathOperator, numberTwo);
-                numberTwo = 0;
+                numberTwo = null;
                 mathOperator = operator.textContent;
                 displayOperation();
                 console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
@@ -89,28 +92,30 @@ operators.forEach((operator) => {
 function deleteLastFigure (number) {
     number = number.toString();
     if (number.length === 1) {
-        return 0;
+        return null;
     }
     return parseInt (number.slice(0,number.length-1));
 };
 
 const del = document.querySelector ('#delete');
 del.addEventListener ('click', () => {
-    if (numberOne !== 0 && mathOperator === 0 && numberTwo === 0) {
+    if (resultShown === 1) {
+        resetAllValues ();
+    }
+    
+    if (numberOne !== null && mathOperator === null && numberTwo === null) {
         numberOne = deleteLastFigure (numberOne);
-        displayOperation ();
         console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
     };
-    if (numberOne !== 0 && mathOperator !== 0 && numberTwo === 0) {
-        mathOperator = 0;
-        displayOperation ();
+    if (numberOne !== null && mathOperator !== null && numberTwo === null) {
+        mathOperator = null;
         console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
     };
-    if (numberOne !== 0 && mathOperator !== 0 && numberTwo !== 0) {
+    if (numberOne !== null && mathOperator !== null && numberTwo !== null) {
         numberTwo = deleteLastFigure (numberTwo);
-        displayOperation ();
         console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
     };
+    displayOperation ();
 });
 
 /* Select corret mathematical operation and initiate respective function */
@@ -128,6 +133,9 @@ function multiply(a,b) {
 }
 
 function divide(a,b) {
+    if (b === 0) {
+        return "ERROR";
+    }
     return a / b;
 }
 
@@ -150,7 +158,7 @@ function operate (numberOne, mathOperator, numberTwo) {
 
 const equal = document.querySelector ('#equal');
 equal.addEventListener ('click', () => {
-    if (numberOne !== 0 && mathOperator !== 0 && numberTwo !== 0) {
+    if (numberOne !== null && mathOperator !== null && numberTwo !== null) {
         resultShown = 1;
         displayOperation ();
     }
@@ -166,9 +174,9 @@ clear.addEventListener ('click', () => {
 });
 
 function resetAllValues () {
-    numberOne = 0;
-    numberTwo = 0; 
-    mathOperator = 0;
+    numberOne = null;
+    numberTwo = null; 
+    mathOperator = null;
     resultShown = 0;
     displayLarge.textContent = 0;
 }
