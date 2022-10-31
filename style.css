@@ -70,11 +70,11 @@ body {
     width: 160px;
 }
 
-#delete {
+#clear {
     background: rgb(240, 134, 134);
 }
 
-#clear {
+#delete {
     background: rgb(146, 146, 218);
 }
 

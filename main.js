@@ -1,22 +1,49 @@
-/* Prompt user for input
+/* Prompt user for input */
 
-let numberOne = parseInt(prompt("Input first number"));
-let mathOperator = prompt('Input "+", "-", "x" or ":"');
-let numberTwo = parseInt(prompt("Input second number"));
+let numberOne = 0;
+let numberTwo = 0;
+let mathOperator = 0;
 
-console.log(mathOperator);
+/* Update and store input */
 
-/ Perform mathematical operation /
+function updateStorage (numberStorage, currentNumber) {
+    numberStorage += currentNumber;
+        numberStorage = parseInt(numberStorage);
+        return numberStorage;
+}
+
+function storeNumber (currentNumber) {
+    if (numberOne != 0 && mathOperator !=0) {
+        return numberTwo = updateStorage (numberTwo, currentNumber);
+    }
+    return numberOne = updateStorage (numberOne, currentNumber);
+}
+
+const numbers = document.querySelectorAll('#number');
+numbers.forEach((number) => {
+    number.addEventListener ('click', () => {
+        let currentNumber = number.textContent;
+        storeNumber (currentNumber);
+        console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`)
+})});
+
+const operators = document.querySelectorAll('#operator');
+operators.forEach((operator) => { 
+    operator.addEventListener ('click', () => {
+        mathOperator = operator.textContent;
+        console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`)
+    })
+})
+
+/* Perform mathematical operation */
 
 function add (a,b) {
     return a + b;
 }
-console.log(add(numberOne,numberTwo));
 
 function subtract (a,b) {
     return a - b;
 }
-console.log(subtract(numberOne,numberTwo));
 
 function multiply(a,b) {
     return a * b;
@@ -26,7 +53,7 @@ function divide(a,b) {
     return a / b;
 }
 
-/ Select corret mathematical operation and initiate respective function /
+/* Select corret mathematical operation and initiate respective function */
 
 function operate (numberOne, mathOperator, numberTwo) {
     if (mathOperator === "+") {
@@ -38,11 +65,24 @@ function operate (numberOne, mathOperator, numberTwo) {
     if (mathOperator === "x") {
         return multiply(numberOne,numberTwo);
     }
-    if (mathOperator === ":") {
+    if (mathOperator === "÷") {
         return divide(numberOne,numberTwo)
     }
 }
 
-console.log(operate(numberOne, mathOperator, numberTwo));
+/* Initiate mathematical operation upon clicking "=" */
 
-*/
+const equal = document.querySelector ('#equal');
+equal.addEventListener ('click', () => {
+    console.log (`Result: ${operate(numberOne, mathOperator, numberTwo)}`);
+});
+
+/* Clear function */
+
+const clear = document.querySelector ('#clear');
+clear.addEventListener ('click', () => {
+    numberOne = 0;
+    numberTwo = 0; 
+    mathOperator = 0;
+    console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`)
+});
