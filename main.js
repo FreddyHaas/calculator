@@ -67,21 +67,22 @@ numbers.forEach((number) => {
 const operators = document.querySelectorAll('#operator');
 operators.forEach((operator) => { 
     operator.addEventListener ('click', () => {
-        if (numberOne === 0 && mathOperator === 0 && numberTwo === 0) {
-            console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
-        }
-        if (numberOne !== 0 && numberTwo === 0) {
-            mathOperator = operator.textContent;
-            displayOperation ();
-            console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
-        }
-        if (numberOne !== 0 && mathOperator !== 0 && numberTwo !== 0) {
-            numberOne = operate(numberOne, mathOperator, numberTwo);
-            numberTwo = 0;
-            mathOperator = operator.textContent;
-            displayOperation();
-            console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
-        }})});
+            if (numberOne === 0 && mathOperator === 0 && numberTwo === 0) {
+                console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
+            }
+            if (numberOne !== 0 && numberTwo === 0) {
+                mathOperator = operator.textContent;
+                displayOperation ();
+                console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
+            }
+            if (numberOne !== 0 && mathOperator !== 0 && numberTwo !== 0) {
+                resultShown = 0 /* Avoids to show result again eventhough second no. was not yet entered */
+                numberOne = operate(numberOne, mathOperator, numberTwo);
+                numberTwo = 0;
+                mathOperator = operator.textContent;
+                displayOperation();
+                console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
+            }})});
 
 /* Delete last input */
 
