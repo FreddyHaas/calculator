@@ -7,8 +7,13 @@ const displayLarge = document.getElementById('displayLarge');
 const displaySmall = document.getElementById('displaySmall');
 
 function displayOperation () {
+    if (numberOne === 0 && mathOperator === 0 && numberTwo === 0) {
+        displaySmall.style.color ='white';
+        displayLarge.textContent = `${numberOne}`;
+    }
     if (numberOne !== 0 && mathOperator === 0) {
         displayLarge.textContent = `${numberOne}`;
+        displaySmall.style.color = `white`;
     }
     if (numberOne !==0 && mathOperator !== 0) {
         displaySmall.textContent = `${numberOne} ${mathOperator}`;
@@ -107,4 +112,33 @@ clear.addEventListener ('click', () => {
     displaySmall.style.color = 'white';
     displayLarge.textContent = 0;
     console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`)
+});
+
+/* Delete function */
+
+function deleteLastFigure (number) {
+    number = number.toString();
+    if (number.length === 1) {
+        return 0;
+    }
+    return parseInt (number.slice(0,number.length-1));
+}
+
+const del = document.querySelector ('#delete');
+del.addEventListener ('click', () => {
+    if (numberOne !== 0 && mathOperator === 0 && numberTwo === 0) {
+        numberOne = deleteLastFigure (numberOne);
+        displayOperation ();
+        console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
+    };
+    if (numberOne !== 0 && mathOperator !== 0 && numberTwo === 0) {
+        mathOperator = 0;
+        displayOperation ();
+        console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
+    };
+    if (numberOne !== 0 && mathOperator !== 0 && numberTwo !== 0) {
+        numberTwo = deleteLastFigure (numberTwo);
+        displayOperation ();
+        console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
+    };
 });
