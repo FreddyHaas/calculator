@@ -27,7 +27,7 @@ function displayOperation () {
     }}
     if (resultShown === 1) {
             displayLarge.textContent = `${operate(numberOne, mathOperator, numberTwo)}`;
-            displaySmall.textContent = `${numberOne} ${mathOperator} ${numberTwo}`;
+            displaySmall.textContent = `${numberOne} ${mathOperator} ${numberTwo} =`;
             console.log (`Result: ${operate(numberOne, mathOperator, numberTwo)}`);
     }};
 
@@ -76,10 +76,10 @@ operators.forEach((operator) => {
             console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
         }
         if (numberOne !== 0 && mathOperator !== 0 && numberTwo !== 0) {
-            showResult ();
             numberOne = operate(numberOne, mathOperator, numberTwo);
             numberTwo = 0;
             mathOperator = operator.textContent;
+            displayOperation();
             console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
         }})});
 
