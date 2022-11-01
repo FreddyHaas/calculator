@@ -27,10 +27,7 @@ function displayOperation () {
             displayLarge.textContent = `${numberTwo}`;
     }}
     if (resultShown === 1) {
-            displayLarge.textContent = `${(Math.round(operate(numberOne, mathOperator, numberTwo)*1000000000)/1000000000)}`;
-            if (typeof operate(numberOne, mathOperator, numberTwo) !== 'number') {
-                displayLarge.textContent = `${operate(numberOne, mathOperator,numberTwo)}`;
-            }
+            displayLarge.textContent = `${operate(numberOne, mathOperator,numberTwo)}`;
             displaySmall.textContent = `${numberOne} ${mathOperator} ${numberTwo} =`;
             console.log (`Result: ${operate(numberOne, mathOperator, numberTwo)}`);
             console.log(typeof (operate(numberOne, mathOperator, numberTwo)) === 'number');
@@ -161,22 +158,22 @@ del.addEventListener ('click', () => {
 /* Select corret mathematical operation and initiate respective function */
 
 function add (a,b) {
-    return a + b;
+    return (Math.round ((a + b)*1000000))/1000000;
 }
 
 function subtract (a,b) {
-    return a - b;
+    return (Math.round ((a - b)*1000000))/1000000;
 }
 
 function multiply(a,b) {
-    return a * b;
+    return (Math.round ((a * b)*1000000))/1000000;
 }
 
 function divide(a,b) {
     if (b === 0) {
         return "ERROR";
     }
-    return a / b;
+    return Math.round (Math.round ((a / b)*1000000))/1000000;
 }
 
 function operate (numberOne, mathOperator, numberTwo) {
