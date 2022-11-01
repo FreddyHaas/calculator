@@ -2,6 +2,7 @@ let numberOne = null;
 let numberTwo = null;
 let mathOperator = null;
 let resultShown = 0;
+let numberOfDecimals = 0; 
 
 /* Update, store and display inputs */
 const displayLarge = document.getElementById('displayLarge');
@@ -26,18 +27,23 @@ function displayOperation () {
             displayLarge.textContent = `${numberTwo}`;
     }}
     if (resultShown === 1) {
-            displayLarge.textContent = `${operate(numberOne, mathOperator, numberTwo)}`;
+            displayLarge.textContent = `${(Math.round(operate(numberOne, mathOperator, numberTwo)*1000000000)/1000000000)}`;
+            if (typeof operate(numberOne, mathOperator, numberTwo) !== 'number') {
+                displayLarge.textContent = `${operate(numberOne, mathOperator,numberTwo)}`;
+            }
             displaySmall.textContent = `${numberOne} ${mathOperator} ${numberTwo} =`;
             console.log (`Result: ${operate(numberOne, mathOperator, numberTwo)}`);
+            console.log(typeof (operate(numberOne, mathOperator, numberTwo)) === 'number');
     }};
 
 function updateStorage (numberStorage, currentNumber) {
     if (numberStorage === null) {
-        numberStorage = 0;
-    };
-    numberStorage += currentNumber;
-        numberStorage = parseInt(numberStorage);
-        return numberStorage;
+        numberStorage = currentNumber;
+    }
+    else {
+        numberStorage += currentNumber;
+    }
+    return numberStorage;
 }
 
 function storeNumber (currentNumber) {
@@ -86,6 +92,40 @@ operators.forEach((operator) => {
                 displayOperation();
                 console.log(`NumberOne:${numberOne}; mathOperator:${mathOperator}; NumberTwo:${numberTwo}`);
             }})});
+
+/* Update decimal points */
+
+function updateDecimal () {
+    if (numberOne === null && mathOperator === null) {
+        numberOfDecimals = 1;
+        return numberOne = "0.";
+    }
+    if (numberOne !== null && mathOperator === null && numberOfDecimals === 0) {
+        numberOfDecimals = 1;
+        return numberOne = (numberOne + ".");     
+    }
+    if (mathOperator === null && numberOfDecimals === 1) {
+        return numberOne;
+    }
+    if (mathOperator !== null && numberTwo === null) {
+        numberOfDecimals = 2;
+        return numberTwo = "0.";
+    }
+    if (mathOperator !== null && numberTwo !== null && numberOfDecimals !== 2) {
+        numberOfDecimals = 2;
+        return numberTwo = (numberTwo + "."); 
+    }
+    if (mathOperator !== null && numberOfDecimals === 2 ) {
+        return numberTwo;
+    }
+}
+
+const dot = document.querySelector ('#point');
+    dot.addEventListener ('click', () => {
+        updateDecimal(); 
+        displayOperation();
+        console.log(numberOfDecimals);
+    });
 
 /* Delete last input */
 
@@ -140,6 +180,8 @@ function divide(a,b) {
 }
 
 function operate (numberOne, mathOperator, numberTwo) {
+    numberOne = parseFloat (numberOne);
+    numberTwo = parseFloat (numberTwo);
     if (mathOperator === "+") {
         return add(numberOne,numberTwo);
     }
@@ -177,6 +219,7 @@ function resetAllValues () {
     numberOne = null;
     numberTwo = null; 
     mathOperator = null;
+    numberOfDecimals = 0;
     resultShown = 0;
     displayLarge.textContent = 0;
 }
