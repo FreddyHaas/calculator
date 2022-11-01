@@ -40,6 +40,7 @@ function updateStorage (numberStorage, currentNumber) {
     else {
         numberStorage += currentNumber;
     }
+    numberStorage = numberStorage.substring(0,12);
     return numberStorage;
 }
 
@@ -157,23 +158,27 @@ del.addEventListener ('click', () => {
 
 /* Select corret mathematical operation and initiate respective function */
 
+function round (result) {
+    return parseFloat (result.toPrecision(12));
+}
+
 function add (a,b) {
-    return (Math.round ((a + b)*1000000))/1000000;
+    return round(a + b);
 }
 
 function subtract (a,b) {
-    return (Math.round ((a - b)*1000000))/1000000;
+    return round(a - b);
 }
 
 function multiply(a,b) {
-    return (Math.round ((a * b)*1000000))/1000000;
+    return round(a * b);
 }
 
 function divide(a,b) {
     if (b === 0) {
         return "ERROR";
     }
-    return Math.round (Math.round ((a / b)*1000000))/1000000;
+    return round(a / b);
 }
 
 function operate (numberOne, mathOperator, numberTwo) {
